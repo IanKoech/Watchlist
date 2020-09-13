@@ -10,7 +10,7 @@ def configure_request(app):
     api_key = app.config['MOVIE_API_KEY']
     base_url = app.config['MOVIE_API_BASE_URL']
 #Import the app instance and from it form api key from config object
-Movie=movie.Movie
+
 #urllib.request module helps create a connection to our API URl and send requests and json modules format
 
 def get_movies(category):
