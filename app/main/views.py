@@ -3,7 +3,6 @@ from . import main
 from ..requests import get_movies,get_movie,search_movie
 from ..models import Review
 from .forms import ReviewForm
-Review=review.Review
 
 #Views
 @main.route('/')
