@@ -1,16 +1,29 @@
-from app import create_app
-from flask_script import Manager,Server
-app=create_app('development')
+from app import create_app, db
+from flask_script import Manager, Server
+from  flask_migrate import Migrate, MigrateCommand
+from app.models import User,Role,Review
+
+app=create_app('production')
+#Using test config above to test database URI
+
 
 manager=Manager(app)
-manager.add_command('server',Server)
+manager.add_command('server', Server)
+migrate = Migrate(app,db)
+manager.add_command('db',MigrateCommand)
 
 def test():
     """Run unit tests"""
     import unittest
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
-if __name__=="__main__":
+
+
+@manager.shell
+def make_shell_context():
+    #Method allows us to pass in some properties into our shell
+    return dict(app = app,db = db,User = User, Role = Role )
+if __name__ == '__main__':
     manager.run()
 #Import create_app function from app folder and import Manger class from flask script
 #Manager class will initialize our extension and server class that helps us launch our server
